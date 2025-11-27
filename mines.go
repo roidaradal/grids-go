@@ -22,10 +22,7 @@ func newMines(numRows, numCols, numMines int) Grid[int] {
 		row, col := indexToCoords(idx, numCols).Tuple()
 		grid[row][col] = bomb
 	}
-	// TODO: replace with check.IsEqual(bomb)
-	isBomb := func(cell int) bool {
-		return cell == bomb
-	}
+	isBomb := checkIsEqual(bomb)
 	// Count neighbor mines
 	for row, line := range grid {
 		for col, cell := range line {
