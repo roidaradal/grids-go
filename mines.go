@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/roidaradal/fn/check"
 	"github.com/roidaradal/fn/ds"
 	"github.com/roidaradal/fn/lang"
 )
@@ -22,7 +23,7 @@ func newMines(numRows, numCols, numMines int) Grid[int] {
 		row, col := indexToCoords(idx, numCols).Tuple()
 		grid[row][col] = bomb
 	}
-	isBomb := checkIsEqual(bomb)
+	isBomb := check.IsEqual(bomb)
 	// Count neighbor mines
 	for row, line := range grid {
 		for col, cell := range line {

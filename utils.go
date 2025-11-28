@@ -2,22 +2,12 @@ package main
 
 import (
 	"math/rand/v2"
-	"slices"
+	"os"
+	"os/exec"
+	"time"
 
 	"github.com/roidaradal/fn/ds"
 )
-
-// TODO: replace with check.IsEqual
-func checkIsEqual[T comparable](goalValue T) func(T) bool {
-	return func(value T) bool {
-		return value == goalValue
-	}
-}
-
-// TODO: replace with list.Repeated
-func listRepeated[T any](value T, count int) []T {
-	return slices.Repeat([]T{value}, count)
-}
 
 // Generate <count> random numbers from [0,limit)
 func randomNumbers(limit, count int) []int {
@@ -26,4 +16,29 @@ func randomNumbers(limit, count int) []int {
 		numbers.Add(rand.IntN(limit))
 	}
 	return numbers.Items()
+}
+
+// Run loop
+func runLoop[T any](grid Grid[T], displayFn func(Grid[T]), nextFn func(Grid[T]) Grid[T], delayMs int) {
+	for {
+		clearScreen()
+		displayFn(grid)
+		if delayMs > 0 {
+			time.Sleep(time.Duration(delayMs) * time.Millisecond)
+		}
+		grid = nextFn(grid)
+	}
+	// For input:
+	// scanner := bufio.NewScanner(os.Stdin)
+	// scanner.Scan()
+	// if scanner.Text() == "q" {
+	// 	break
+	// }
+}
+
+// Clear screen
+func clearScreen() {
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }

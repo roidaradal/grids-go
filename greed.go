@@ -18,7 +18,7 @@ func newGreed() Grid[int] {
 	digits := make([]int, 0, numRows*numCols)
 	digits = append(digits, greedCursor)
 	for i := 1; i <= 9; i++ {
-		digits = append(digits, listRepeated(i, perDigit)...)
+		digits = append(digits, list.Repeated(i, perDigit)...)
 	}
 	list.Shuffle(digits)
 	for idx, digit := range digits {

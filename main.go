@@ -3,23 +3,27 @@ package main
 import "fmt"
 
 const (
-	MINES = "mines"
-	GREED = "greed"
-	_2048 = "2048"
+	_2048  = "2048"
+	CONWAY = "conway"
+	GREED  = "greed"
+	MINES  = "mines"
 )
 
 func main() {
-	option := _2048
+	option := CONWAY
 	switch option {
-	case MINES:
-		grid := newMines(9, 9, 10)
-		displayMines(grid)
-	case GREED:
-		grid := newGreed()
-		displayGreed(grid)
 	case _2048:
 		grid := new2048()
 		display2048(grid)
+	case CONWAY:
+		grid := newRandomConway(50, 250, 500)
+		runLoop(grid, displayConway, nextConway, 100)
+	case GREED:
+		grid := newGreed()
+		displayGreed(grid)
+	case MINES:
+		grid := newMines(9, 9, 10)
+		displayMines(grid)
 	default:
 		fmt.Println("Unknown option:", option)
 	}
